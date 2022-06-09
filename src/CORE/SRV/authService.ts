@@ -12,8 +12,6 @@ const generateToken = (user:UserDTO): Promise<string> => {
         Name: user.Name,
         LastName: user.LastName,
         Phone: user.Phone,
-        Password: user.Password,
-        IsActive: user.IsActive
     }
     let token =  jwt.sign(data, jwtSecretKey);
     return token;
@@ -24,11 +22,7 @@ class AuthService {
         try {
             let user = await userService.getUserLogin(req);
             if (!user.Success) return res.status(400).json(user);
-            console.log(user.Result);
-            
             let token = generateToken(user.Result);
-            console.log(token);
-            
             return res.status(200).json({token:  token});
           } catch (error) {
             console.log(error);

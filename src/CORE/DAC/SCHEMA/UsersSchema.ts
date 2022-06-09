@@ -1,7 +1,8 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { UserDTO } from '../../DTO/UserDTO';
+import { UserSchemaModel } from '../Models/UserSchemaModel';
 
-const UsersSchema: Schema = new Schema(
+const UsersSchema: Schema<UserSchemaModel> = new Schema(
     {
         _id: { type: Schema.Types.ObjectId },
         Email: { type: String, required: true, unique: true },
@@ -9,8 +10,8 @@ const UsersSchema: Schema = new Schema(
         LastName: { type: String, required: true },
         Phone: { type: String, required: true },
         Password: { type: String, required: true },
-        IsActive: { type: Boolean }
+        IsActive: { type: Boolean },
     }
 );
 
-export default mongoose.model<UserDTO>('Users', UsersSchema);
+export default mongoose.model<UserSchemaModel>('Users', UsersSchema);

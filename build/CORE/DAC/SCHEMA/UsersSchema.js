@@ -31,7 +31,7 @@ const UsersSchema = new mongoose_1.Schema({
     LastName: { type: String, required: true },
     Phone: { type: String, required: true },
     Password: { type: String, required: true },
-    IsActive: { type: Boolean }
+    IsActive: { type: Boolean },
 });
 exports.default = mongoose_1.default.model('Users', UsersSchema);
 //# sourceMappingURL=UsersSchema.js.map
