@@ -1,4 +1,9 @@
-export interface UserDTO{
+export class UserDTO {
     _id?: any;
-    name?: string;
+    Email?: string;
+    Name?: string;
+    LastName?: string;
+    Phone?: string;
+    Password?: string;
+    IsActive?: Boolean;
 }

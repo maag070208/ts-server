@@ -1,16 +1,30 @@
 import { Request, Response } from 'express';
-import { tResult } from '../DTO/TResult/TResult';
-import { UserDTO } from '../DTO/UserDTO';
-import usersRepository from "../REP/UsersRepository";
+import { UserBindingModel } from '../DTO/BindingModels/UsersBindingModel';
+import userRepository from "../REP/UsersRepository";
 
-const addUser = (req: Request, res: Response) => {
-    const result = usersRepository.addUser();
-
-    if (result._id != "") {
-        return res.json(tResult.CreateTResult<UserDTO>(result));
+class UserService {
+    public async addUser(req: Request, res: Response) {
+        const user: UserBindingModel = Object.assign(new UserBindingModel(), {
+            Email: req.body.Email,
+            Name: req.body.Name,
+            LastName: req.body.LastName,
+            Phone: req.body.Phone,
+            Password: req.body.Password
+        })
+        const result = await userRepository.addUser(user);
+        return res.json(result);
     }
 
-    return res.json(tResult.CreateTResult<UserDTO>({},["no se pudo crear el usuario"]));
+    public async getUsers(req: Request, res: Response) {
+        const result = await userRepository.getUsers();
+        return res.json(result);
+    }
 
+    public async getUserById(req: Request, res: Response) {
+        const { id } = req.params;
+        const result = await userRepository.getUserById(id);
+        return res.json(result);
+    }
 }
-export default { addUser };
+const userService = new UserService();
+export default userService;

@@ -1,17 +1,16 @@
 import { Router } from 'express';
-import usersService from '../../CORE/SRV/UsersService';
-
-
+import userService from '../../CORE/SRV/UsersService';
 
 class UsersController {
 	public router: Router = Router();
-
-	constructor(){
+	constructor() {
 		this.config();
 	}
 
-	config():void{
-		this.router.get('/', usersService.addUser);
+	config(): void {
+		this.router.get('/', userService.getUsers);
+		this.router.get('/:id', userService.getUserById);
+		this.router.post('/', userService.addUser);
 	}
 }
 
