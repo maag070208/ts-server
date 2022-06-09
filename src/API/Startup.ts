@@ -5,13 +5,16 @@ import cors from 'cors';
 import { connectionDB } from "../CORE/DAC/database.context";
 import IndexController from './controllers/indexController';
 import UsersController from './controllers/UsersController';
-
+import AuthController from './controllers/authController';
+const dotenv = require('dotenv');
+  
 class Server {
 
 	public app: Application;
 
 	constructor() {
 		this.app = express();
+		dotenv.config();
 		this.config();
 		this.routes();
 	}
@@ -27,6 +30,7 @@ class Server {
 	routes(): void {
 		this.app.use('/', IndexController);
 		this.app.use('/users', UsersController);
+		this.app.use('/auth', AuthController);
 	}
 
 	start(): void {

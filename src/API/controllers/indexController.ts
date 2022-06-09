@@ -3,11 +3,9 @@ import { Request, Response } from 'express';
 
 class IndexController {
 	public router: Router = Router();
-
 	constructor(){
 		this.config();
 	}
-
     async helloWorld(req: Request, res: Response){
         return res.json({helloWorld:"helloWorld"});
     }

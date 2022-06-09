@@ -9,9 +9,12 @@ const cors_1 = __importDefault(require("cors"));
 const database_context_1 = require("../CORE/DAC/database.context");
 const indexController_1 = __importDefault(require("./controllers/indexController"));
 const UsersController_1 = __importDefault(require("./controllers/UsersController"));
+const authController_1 = __importDefault(require("./controllers/authController"));
+const dotenv = require('dotenv');
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
+        dotenv.config();
         this.config();
         this.routes();
     }
@@ -25,6 +28,7 @@ class Server {
     routes() {
         this.app.use('/', indexController_1.default);
         this.app.use('/users', UsersController_1.default);
+        this.app.use('/auth', authController_1.default);
     }
     start() {
         database_context_1.connectionDB.connectToMongodb();
