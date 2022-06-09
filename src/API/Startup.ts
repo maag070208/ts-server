@@ -3,9 +3,9 @@ import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { connectionDB } from "../CORE/DAC/database.context";
-import IndexController from './controllers/indexController';
+import IndexController from './controllers/IndexController';
 import UsersController from './controllers/UsersController';
-import AuthController from './controllers/authController';
+import AuthController from './controllers/AuthController';
 const dotenv = require('dotenv');
   
 class Server {

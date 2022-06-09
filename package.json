@@ -18,6 +18,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.2",
     "morgan": "^1.10.0",
+    "reflect-metadata": "^0.1.13",
+    "ts-automapper": "^1.3.0",
     "typed-inject": "^3.0.1"
   },
   "devDependencies": {

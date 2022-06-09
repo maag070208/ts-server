@@ -20,7 +20,6 @@ export default function (req, res, next) {
     return res.status(401).json(result);
   }
   token = token.replace("Bearer ", "");
-  console.log(token);
   try {
     validateToken(token);
     next();

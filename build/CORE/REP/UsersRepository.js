@@ -17,9 +17,11 @@ const UsersSchema_1 = __importDefault(require("../DAC/SCHEMA/UsersSchema"));
 const TResult_1 = require("../DTO/TResult/TResult");
 const UserDTO_1 = require("../DTO/UserDTO");
 const bcrypt = require("bcrypt");
+const ts_automapper_1 = __importDefault(require("ts-automapper"));
 class UserRepository {
     constructor() {
         this.tResult = new TResult_1.TResult();
+        this.setMaps();
     }
     addUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -37,9 +39,10 @@ class UserRepository {
                     IsActive: true,
                 });
                 yield newUser.save();
-                return this.tResult.CreateTResult(newUser, []);
+                return this.tResult.CreateTResult(ts_automapper_1.default.exec("EDITUSER", newUser), []);
             }
             catch (err) {
+                console.log(err);
                 const newUser = new UserDTO_1.UserDTO();
                 return this.tResult.CreateTResult(newUser, ["No pudo crear el usuario"]);
             }
@@ -48,10 +51,14 @@ class UserRepository {
     getUsers() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const users = new Array();
                 const Users = yield UsersSchema_1.default.find();
                 if (Users.length == 0)
                     return this.tResult.CreateTResult(Users, ["No encontro ningun usuario"]);
-                return this.tResult.CreateTResult(Users, []);
+                for (var i = 0; i < Users.length; i++) {
+                    users.push(ts_automapper_1.default.exec("EDITUSER", Users[i]));
+                }
+                return this.tResult.CreateTResult(users, []);
             }
             catch (err) {
                 const Users = new Array();
@@ -62,10 +69,10 @@ class UserRepository {
     getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const User = yield UsersSchema_1.default.find({ _id: id, IsActive: true });
-                if (User.length == 0)
-                    return this.tResult.CreateTResult(User[0], ["No encontro al usuario"]);
-                return this.tResult.CreateTResult(User[0], []);
+                const User = yield UsersSchema_1.default.findOne({ _id: id, IsActive: true });
+                if (!User)
+                    return this.tResult.CreateTResult(User, ["No encontro al usuario"]);
+                return this.tResult.CreateTResult(ts_automapper_1.default.exec("EDITUSER", User), []);
             }
             catch (err) {
                 const User = new UserDTO_1.UserDTO();
@@ -87,13 +94,21 @@ class UserRepository {
                     return this.tResult.CreateTResult(new UserDTO_1.UserDTO(), [`El usuario: ${user.Email} no existe`]);
                 if (yield this.comparePassword(user.Password, User.Password))
                     return this.tResult.CreateTResult(new UserDTO_1.UserDTO(), [`La contraseña: '${user.Password}' no coincide`]);
-                return this.tResult.CreateTResult(User, []);
+                return this.tResult.CreateTResult(ts_automapper_1.default.exec("EDITUSER", User), []);
             }
             catch (err) {
                 const User = new UserDTO_1.UserDTO();
                 return this.tResult.CreateTResult(User, ["Ah ocurrido un erros inesperado"]);
             }
         });
+    }
+    setMaps() {
+        ts_automapper_1.default.create("EDITUSER")
+            .map((src) => src._id, (dst) => dst._id)
+            .map((src) => src.Name, (dst) => dst.Name)
+            .map((src) => src.LastName, (dst) => dst.LastName)
+            .map((src) => src.Email, (dst) => dst.Email)
+            .map((src) => src.Phone, (dst) => dst.Phone);
     }
 }
 const userRepository = new UserRepository();
