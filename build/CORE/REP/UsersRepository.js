@@ -16,6 +16,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const UsersSchema_1 = __importDefault(require("../DAC/SCHEMA/UsersSchema"));
 const TResult_1 = require("../DTO/TResult/TResult");
 const UserDTO_1 = require("../DTO/UserDTO");
+const bcrypt = require("bcrypt");
 class UserRepository {
     constructor() {
         this.tResult = new TResult_1.TResult();
@@ -23,6 +24,9 @@ class UserRepository {
     addUser(user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
+                const User = yield UsersSchema_1.default.findOne({ Email: user.Email });
+                if (User)
+                    return this.tResult.CreateTResult(new UserDTO_1.UserDTO(), [`El usuario: '${user.Email}' ya existe`]);
                 const newUser = new UsersSchema_1.default({
                     _id: new mongoose_1.default.Types.ObjectId(),
                     Email: user.Email,
@@ -66,6 +70,28 @@ class UserRepository {
             catch (err) {
                 const User = new UserDTO_1.UserDTO();
                 return this.tResult.CreateTResult(User, ["No encontro al usuario"]);
+            }
+        });
+    }
+    comparePassword(password, userPassword) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const cmp = yield bcrypt.compare(password, userPassword);
+            return !cmp;
+        });
+    }
+    getUserLogin(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const User = yield UsersSchema_1.default.findOne({ Email: user.Email, IsActive: true });
+                if (!User)
+                    return this.tResult.CreateTResult(new UserDTO_1.UserDTO(), [`El usuario: ${user.Email} no existe`]);
+                if (yield this.comparePassword(user.Password, User.Password))
+                    return this.tResult.CreateTResult(new UserDTO_1.UserDTO(), [`La contraseña: '${user.Password}' no coincide`]);
+                return this.tResult.CreateTResult(User, []);
+            }
+            catch (err) {
+                const User = new UserDTO_1.UserDTO();
+                return this.tResult.CreateTResult(User, ["Ah ocurrido un erros inesperado"]);
             }
         });
     }

@@ -12,17 +12,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const AuthBindingModel_1 = require("../DTO/BindingModels/AuthBindingModel");
 const UsersBindingModel_1 = require("../DTO/BindingModels/UsersBindingModel");
 const UsersRepository_1 = __importDefault(require("../REP/UsersRepository"));
+const bcrypt = require("bcrypt");
 class UserService {
     addUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
+            const hash = yield bcrypt.hash(req.body.Password, 10);
             const user = Object.assign(new UsersBindingModel_1.UserBindingModel(), {
                 Email: req.body.Email,
                 Name: req.body.Name,
                 LastName: req.body.LastName,
                 Phone: req.body.Phone,
-                Password: req.body.Password
+                Password: hash
             });
             const result = yield UsersRepository_1.default.addUser(user);
             return res.json(result);
@@ -39,6 +42,15 @@ class UserService {
             const { id } = req.params;
             const result = yield UsersRepository_1.default.getUserById(id);
             return res.json(result);
+        });
+    }
+    getUserLogin(req) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = Object.assign(new AuthBindingModel_1.LoginBindingModel(), {
+                Email: req.body.Email,
+                Password: req.body.Password
+            });
+            return yield UsersRepository_1.default.getUserLogin(user);
         });
     }
 }
