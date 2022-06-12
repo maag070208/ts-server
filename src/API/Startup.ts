@@ -3,10 +3,10 @@ import express, { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import { connectionDB } from "../CORE/DAC/database.context";
-import IndexController from './controllers/IndexController';
 import UsersController from './controllers/UsersController';
 import AuthController from './controllers/AuthController';
 import StoreController from './controllers/StoreController';
+import IndexController from './controllers/indexController';
 const dotenv = require('dotenv');
   
 class Server {

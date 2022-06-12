@@ -7,10 +7,10 @@ const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 const database_context_1 = require("../CORE/DAC/database.context");
-const IndexController_1 = __importDefault(require("./controllers/IndexController"));
 const UsersController_1 = __importDefault(require("./controllers/UsersController"));
 const AuthController_1 = __importDefault(require("./controllers/AuthController"));
 const StoreController_1 = __importDefault(require("./controllers/StoreController"));
+const indexController_1 = __importDefault(require("./controllers/indexController"));
 const dotenv = require('dotenv');
 class Server {
     constructor() {
@@ -27,7 +27,7 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
-        this.app.use('/', IndexController_1.default);
+        this.app.use('/', indexController_1.default);
         this.app.use('/users', UsersController_1.default);
         this.app.use('/auth', AuthController_1.default);
         this.app.use('/stores', StoreController_1.default);
