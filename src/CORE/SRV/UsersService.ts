@@ -9,13 +9,16 @@ const bcrypt = require("bcrypt");
 class UserService {
     public async addUser(req: Request, res: Response) {
         const hash = await bcrypt.hash(req.body.Password, 10);
-        const user: UserBindingModel = Object.assign(new UserBindingModel(), {
+        const user: UserBindingModel = {
             Email: req.body.Email,
             Name: req.body.Name,
-            LastName: req.body.LastName,
+            PaternalLastName: req.body.PaternalLastName,
+            MaternalLastName: req.body.MaternalLastName,
+            Latitude: req.body.Latitude,
+            Longitude: req.body.Longitude,
             Phone: req.body.Phone,
             Password: hash
-        })
+        }
         const result = await userRepository.addUser(user);
         return res.json(result);
     }
@@ -32,10 +35,10 @@ class UserService {
     }
 
     public async getUserLogin(req: Request):Promise<TResult<UserDTO>> {
-        const user: LoginBindingModel = Object.assign(new LoginBindingModel(), {
+        const user: LoginBindingModel = {
             Email: req.body.Email,
             Password: req.body.Password
-        })
+        }
         return await userRepository.getUserLogin(user);
     }
 

@@ -1,7 +1,10 @@
-export class UserBindingModel {
-    Email?:string;
-    Name?:string;
-    LastName?:string;
-    Phone?:string;
-    Password?:string;
+export interface UserBindingModel {
+    Email:string;
+    Name:string;
+    PaternalLastName:string;
+    MaternalLastName:string;
+    Phone:string;
+    Latitude: string;
+    Longitude: string;
+    Password:string;
 }

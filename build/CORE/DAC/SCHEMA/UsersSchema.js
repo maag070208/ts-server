@@ -28,10 +28,13 @@ const UsersSchema = new mongoose_1.Schema({
     _id: { type: mongoose_1.Schema.Types.ObjectId },
     Email: { type: String, required: true, unique: true },
     Name: { type: String, required: true },
-    LastName: { type: String, required: true },
+    PaternalLastName: { type: String, required: true },
+    MaternalLastName: { type: String },
+    Latitude: { type: String, required: true },
+    Longitude: { type: String, required: true },
     Phone: { type: String, required: true },
     Password: { type: String, required: true },
-    IsActive: { type: Boolean }
+    IsActive: { type: Boolean },
 });
 exports.default = mongoose_1.default.model('Users', UsersSchema);
 //# sourceMappingURL=UsersSchema.js.map

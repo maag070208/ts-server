@@ -29,7 +29,8 @@ mongoose_1.connection.on("connected", () => {
 mongoose_1.connection.on("error", (error) => {
     console.error("error", error);
 });
-mongoose_1.connection.on("disconnected", () => {
+mongoose_1.connection.on("disconnected", (error) => {
+    console.log("error", error);
     console.log("Mongodb disconnected");
 });
 exports.connectionDB = new Connection;

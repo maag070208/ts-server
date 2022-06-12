@@ -1,11 +1,11 @@
 import { Schema } from 'mongoose';
-export class UserDTO {
+import { UserDTO } from './UserDTO';
+export class StoreDTO {
     _id: Schema.Types.ObjectId;
-    Email: string;
     Name: string;
-    PaternalLastName: string;
-    MaternalLastName: string;
-    Phone: string;
+    Icon:string;
+    Logo:string;
+    User:UserDTO;
     Latitude: string;
     Longitude: string;
 }

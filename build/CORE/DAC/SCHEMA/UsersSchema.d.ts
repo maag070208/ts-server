@@ -1,4 +1,4 @@
 import mongoose from 'mongoose';
-import { UserDTO } from '../../DTO/UserDTO';
-declare const _default: mongoose.Model<UserDTO, {}, {}, {}>;
+import { UserSchemaModel } from '../Models/UserSchemaModel';
+declare const _default: mongoose.Model<UserSchemaModel, {}, {}, {}>;
 export default _default;
