@@ -1,11 +1,19 @@
 import { Schema } from 'mongoose';
-export class UserSchemaModel {
-    _id?: Schema.Types.ObjectId;
-    Email?: string;
-    Name?: string;
-    LastName?: string;
-    Phone?: string;
-    Password?: string;
-    IsActive?: Boolean;
-    __v?:number;
+export interface UserSchemaModel {
+    // UUID
+    _id: Schema.Types.ObjectId;
+    // USER INFO
+    Email: string;
+    Name: string;
+    PaternalLastName: string;
+    MaternalLastName: string;
+    Phone: string;
+    // PASSWORD IS ENCRYPTED
+    Password: string;
+    // USER LOCATION
+    Latitude: string;
+    Longitude: string;
+    // USER ADMINISTRATION
+    IsActive: Boolean;
+    __v:number;
 }

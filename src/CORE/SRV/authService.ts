@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 const jwt = require('jsonwebtoken');
-import userService from '../../CORE/SRV/UsersService';
+import userService from './UsersService';
 import { UserDTO } from '../DTO/UserDTO';
 import { TResult } from '../DTO/TResult/TResult';
 
@@ -11,8 +11,11 @@ const generateToken = (user:UserDTO): string => {
         _id: user._id,
         Email: user.Email,
         Name: user.Name,
-        LastName: user.LastName,
+        PaternalLastName: user.PaternalLastName,
+        MaternalLastName: user.MaternalLastName,
         Phone: user.Phone,
+        Latitude: user.Latitude,
+        Longitude: user.Longitude,
     }
     let token =  jwt.sign(data, jwtSecretKey);
     return token;
