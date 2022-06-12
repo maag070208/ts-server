@@ -68,7 +68,7 @@ class UserRepository {
         const cmp = await bcrypt.compare(password, userPassword);
         return !cmp;
     }
-    
+
     public async getUserLogin(user: LoginBindingModel): Promise<TResult<UserDTO>> {
         try {
             const User = await UsersSchema.findOne({ Email: user.Email, IsActive: true });
@@ -80,7 +80,6 @@ class UserRepository {
             return this.tResult.CreateTResult<UserDTO>(User, ["Ah ocurrido un erros inesperado"]);
         }
     }
-
 
     private setMaps() {
         AutoMapper.create<UserDTO, UserSchemaModel>("EDITUSER")
