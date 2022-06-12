@@ -1,4 +1,4 @@
-export class LoginBindingModel{
-    Email?: string;
-    Password?: string;
+export interface LoginBindingModel{
+    Email: string;
+    Password: string;
 }

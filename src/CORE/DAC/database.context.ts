@@ -17,7 +17,8 @@ connection.on("error", (error) => {
   console.error("error", error);
 });
 
-connection.on("disconnected", () => {
+connection.on("disconnected", (error) => {
+  console.log("error",error)
   console.log("Mongodb disconnected");
 });
 

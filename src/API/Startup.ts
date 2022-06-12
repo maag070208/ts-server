@@ -6,6 +6,7 @@ import { connectionDB } from "../CORE/DAC/database.context";
 import IndexController from './controllers/IndexController';
 import UsersController from './controllers/UsersController';
 import AuthController from './controllers/AuthController';
+import StoreController from './controllers/StoreController';
 const dotenv = require('dotenv');
   
 class Server {
@@ -31,6 +32,7 @@ class Server {
 		this.app.use('/', IndexController);
 		this.app.use('/users', UsersController);
 		this.app.use('/auth', AuthController);
+		this.app.use('/stores', StoreController);
 	}
 
 	start(): void {

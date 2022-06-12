@@ -33,8 +33,11 @@ class UserRepository {
                     _id: new mongoose_1.default.Types.ObjectId(),
                     Email: user.Email,
                     Name: user.Name,
-                    LastName: user.LastName,
+                    PaternalLastName: user.PaternalLastName,
+                    MaternalLastName: user.MaternalLastName,
                     Phone: user.Phone,
+                    Latitude: user.Latitude,
+                    Longitude: user.Longitude,
                     Password: user.Password,
                     IsActive: true,
                 });
@@ -106,7 +109,10 @@ class UserRepository {
         ts_automapper_1.default.create("EDITUSER")
             .map((src) => src._id, (dst) => dst._id)
             .map((src) => src.Name, (dst) => dst.Name)
-            .map((src) => src.LastName, (dst) => dst.LastName)
+            .map((src) => src.PaternalLastName, (dst) => dst.PaternalLastName)
+            .map((src) => src.MaternalLastName, (dst) => dst.MaternalLastName)
+            .map((src) => src.Latitude, (dst) => dst.Latitude)
+            .map((src) => src.Longitude, (dst) => dst.Longitude)
             .map((src) => src.Email, (dst) => dst.Email)
             .map((src) => src.Phone, (dst) => dst.Phone);
     }
