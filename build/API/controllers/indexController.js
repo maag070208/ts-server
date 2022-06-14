@@ -26,4 +26,4 @@ class IndexController {
 }
 const indexController = new IndexController();
 exports.default = indexController.router;
-//# sourceMappingURL=IndexController.js.map
+//# sourceMappingURL=indexController.js.map
