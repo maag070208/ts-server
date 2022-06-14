@@ -7,7 +7,6 @@ import { TResult } from '../DTO/TResult/TResult';
 const generateToken = (user:UserDTO): string => {
     let jwtSecretKey = process.env.JWT_SECRET_KEY;
     let data = {
-        Time: Date(),
         _id: user._id,
         Email: user.Email,
         Name: user.Name,
@@ -16,6 +15,7 @@ const generateToken = (user:UserDTO): string => {
         Phone: user.Phone,
         Latitude: user.Latitude,
         Longitude: user.Longitude,
+        time: Date(),
     }
     let token =  jwt.sign(data, jwtSecretKey);
     return token;

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import authService from '../../CORE/SRV/authService';
+import AuthService from '../../CORE/SRV/AuthService';
 
 class AuthController {
 	public router: Router = Router();
@@ -8,7 +8,7 @@ class AuthController {
 	}
 
 	config(): void {
-		this.router.post('/', authService.login);
+		this.router.post('/', AuthService.login);
 	}
 }
 

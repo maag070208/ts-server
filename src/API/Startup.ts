@@ -6,7 +6,8 @@ import { connectionDB } from "../CORE/DAC/database.context";
 import UsersController from './controllers/UsersController';
 import AuthController from './controllers/AuthController';
 import StoreController from './controllers/StoreController';
-import IndexController from './controllers/indexController';
+import IndexController from './controllers/IndexController';
+import ImageController from './controllers/ImageController';
 const dotenv = require('dotenv');
   
 class Server {
@@ -24,8 +25,8 @@ class Server {
 		this.app.set('port', 3000);
 		this.app.use(morgan('dev'));
 		this.app.use(cors());
-		this.app.use(express.json());
-		this.app.use(express.urlencoded({ extended: false }));
+		this.app.use(express.json({limit: '50mb'}));
+		this.app.use(express.urlencoded({limit: '50mb', extended: true}));
 	}
 
 	routes(): void {
@@ -33,6 +34,7 @@ class Server {
 		this.app.use('/users', UsersController);
 		this.app.use('/auth', AuthController);
 		this.app.use('/stores', StoreController);
+		this.app.use('/images', ImageController);
 	}
 
 	start(): void {
