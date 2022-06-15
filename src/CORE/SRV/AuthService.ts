@@ -5,7 +5,9 @@ import { UserDTO } from '../DTO/UserDTO';
 import { TResult } from '../DTO/TResult/TResult';
 
 const generateToken = (user:UserDTO): string => {
-    let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+    let jwtSecretKey = `${process.env.JWT_SECRET_KEY}`; 
+
     let data = {
         _id: user._id,
         Email: user.Email,

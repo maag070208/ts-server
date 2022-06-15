@@ -6,6 +6,7 @@ class IndexController {
 	constructor(){
 		this.config();
 	}
+
     async helloWorld(req: Request, res: Response){
         return res.json({helloWorld:"helloWorld"});
     }
