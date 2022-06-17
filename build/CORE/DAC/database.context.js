@@ -15,7 +15,7 @@ class Connection {
     connectToMongodb() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield (0, mongoose_1.connect)("mongodb://localhost:27017");
+                yield (0, mongoose_1.connect)("mongodb://localhost:27017/test");
             }
             catch (error) {
                 console.log("Error:", error);

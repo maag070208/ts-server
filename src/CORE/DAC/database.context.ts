@@ -3,7 +3,7 @@ import { connect, connection } from "mongoose";
 class Connection {
   public async connectToMongodb() {
     try {
-      await connect("mongodb://localhost:27017");
+      await connect("mongodb://localhost:27017/test");
     } catch (error) {
       console.log("Error:", error);
     }
